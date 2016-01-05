@@ -1,84 +1,63 @@
-scoreID = document.querySelector("#score p");
-multiplicatorID = document.querySelector("#multiplicator p");
-autoclicID = document.querySelector("#autoclic p");
-buttonClic = document.querySelector("#buttonClic");
-buttonMult = document.querySelector("#buttonMult");
-buttonAutoclic = document.querySelector("#buttonAutoclic");
-
-// Default values
+$bouton = document.getElementById("bouton");
+$multiplicateur = document.getElementById("multiplicateur");
+$boutonAutoclic = document.getElementById("boutonAutoclic");
+$score = document.getElementById("score");
 score = 0;
-countMultiplicator = 1;
-countAutoclic = 0;
-priceMultiplicator = 20;
-priceAutoclic = 40;
+nbMultiplicateur = 1;
 
-// Show values in HTML
-function showScore() {
-	scoreID.innerHTML = "Score: " + score;
+function afficherScore() {
+    $score.innerHTML = "Score : " + score;
 }
 
-function showMultiplicator() {
-	multiplicatorID.innerHTML = "Next multiplicator price: " + priceMultiplicator;
-	buttonMult.innerHTML = "Multiplicator x" + countMultiplicator;
+function afficherNbMultiplicateur() {
+    $multiplicateur.innerHTML = "Multiplicateur x" + nbMultiplicateur + " (prix du prochain : " + prix() + ")";
 }
 
-function showAutoclic() {
-	autoclicID.innerHTML = "Next autoclic price: " + priceAutoclic;
-	buttonAutoclic.innerHTML = "Autoclic x" + countAutoclic;
+function afficherPrixAutoclick(){
+    $boutonAutoclic.innerHTML = "Acheter un autoclick pour " + prixAutoClick() + " cookies";
 }
 
-// Increment Score
-function incrementScore() {
-	score += countMultiplicator;
-	showScore()
+function clic() {
+    score = score + nbMultiplicateur;
+    afficherScore();
 }
 
-// Increment autoclic
-function autoclicScore() {
-	score += countAutoclic;
-	showScore()
+function prix() {
+    return 20 * nbMultiplicateur * nbMultiplicateur;
 }
 
-// Increment Multiplicator if enough points and update values
-function incrementMultiplicator() {
-	if (score >= priceMultiplicator) {
-		score -= priceMultiplicator;
-		countMultiplicator += 1;
-		multiplicatorPrice();
-		showScore();
-		showMultiplicator();
-	}
-	else {
-		alert("You need at least " + priceMultiplicator);
-	}	
+function prixAutoClick(){
+    return 100;
 }
 
-function multiplicatorPrice() {
-	priceMultiplicator *= 2;
+function acheterMultiplicateur() {
+    if (score >= prix()) {
+        score = score - prix();
+        nbMultiplicateur = nbMultiplicateur + 1;
+        afficherNbMultiplicateur();
+        afficherScore();
+    } else {
+        alert("Votre score est insuffisant !");
+    }
 }
 
-// Increment Autoclic if enough points and update values
-function incrementAutoclic() {
-	if (score >= priceAutoclic) {
-		score -= priceAutoclic;
-		countAutoclic += 1;
-		autoclicPrice();
-		showScore();
-		showAutoclic();
-	}
-	else {
-		alert("You need at least " + priceAutoclic);
-	}	
+function acheterAutoclick() {
+    if (score >= prixAutoClick()) {
+        score = score - prixAutoClick();
+        autoclicker();
+    } else {
+        alert("Votre nombre de cookies est insuffisant !");
+    }
+};
+
+function autoclicker(){
+     $stop = setInterval($bouton.onclick,1000);
+ 
 }
 
-function autoclicPrice() {
-	priceAutoclic *= 2;
-}
-
-setInterval(autoclicScore, 1000)
-showScore();
-showMultiplicator();
-showAutoclic();
-buttonClic.onclick = incrementScore;
-buttonMult.onclick = incrementMultiplicator;
-buttonAutoclic.onclick = incrementAutoclic;
+$bouton.onclick = clic;
+$multiplicateur.onclick = acheterMultiplicateur;
+$boutonAutoclic.onclick = acheterAutoclick;
+afficherScore();
+afficherMultiplicateur();
+afficherPrixAutoclick();
