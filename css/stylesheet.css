@@ -1,3 +1,15 @@
+body {
+  color: #FFF;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  text-align: justify;
+  position: relative;
+  background: #474d5d;
+  width: 100%;
+  margin: 50px;
+  overflow-x: hidden;
+}
 .container {
     position: relative;
     width: 600px;
@@ -7,7 +19,7 @@
     padding: 30px;
     text-align: center;
 }
-button {
+bouton {
     width: 150px;
     height: 40px;
     padding: 0;
@@ -21,22 +33,9 @@ button {
     text-align: center;
 }
 
-button:hover {
-    background: #00dc7c;
-    color: #FFF;
-}
-
-button {
+bouton {
     -o-transition: all .3s;
     -moz-transition: all .3s;
     -webkit-transition: all .3s;
     -ms-transition: all .3s;
-}
-
-p {
-    margin: 5px;
-    padding-bottom: 10px;
-    font-size: 16px;
-    color: #FFF;
-    line-height: 30px;
 }
